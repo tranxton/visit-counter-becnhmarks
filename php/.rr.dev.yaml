@@ -1,0 +1,52 @@
+version: "3"
+
+server:
+  command: "php public/index.php"
+  env:
+    - APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+
+http:
+  address: 0.0.0.0:8080
+  middleware: [ "static", "gzip", "http_metrics" ]
+  pool:
+    num_workers: 1
+    max_jobs: 5
+  uploads:
+    forbid: [ ".php", ".exe", ".bat" ]
+  static:
+    dir: "public"
+    forbid: [ ".php", ".htaccess" ]
+
+rpc:
+  listen: tcp://127.0.0.1:6001
+
+metrics:
+  address: 0.0.0.0:2112
+  collect:
+    visit_registration_success:
+      type: counter
+      help: 'Number of successful visit registrations'
+      labels: [ "country" ]
+    visit_registration_error:
+      type: counter
+      help: 'Number of failed visit registrations'
+      labels: [ "country" ]
+    visit_getting_success:
+      type: counter
+      help: "Number of successful visit fetches"
+    visit_getting_error:
+      type: counter
+      help: "Number of failed visit fetches"
+
+logs:
+  mode: development
+  channels:
+    http:
+      level: debug
+    server:
+      level: debug
+    metrics:
+      level: debug
+    otel:
+      level: debug
+

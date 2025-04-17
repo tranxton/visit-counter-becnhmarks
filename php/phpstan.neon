@@ -1,0 +1,28 @@
+includes:
+  - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+  level: max
+  paths:
+    - ./
+  excludePaths:
+    - bin
+    - linters
+    - public
+    - var
+    - vendor
+  tmpDir: var/phpstan
+  phpVersion: 80400
+  editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+  editorUrlTitle: '%%relFile%%:%%line%%'
+  stubFiles:
+      - linters/phpstan/stubs/Container.php
+  strictRules:
+      allRules: true
+  exceptions:
+    check:
+      missingCheckedExceptionInThrows: true
+    uncheckedExceptionClasses:
+      - 'LogicException'
+      - 'RuntimeException'
+      - 'Error'

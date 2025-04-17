@@ -1,0 +1,59 @@
+volumes:
+    prometheus:
+    redis:
+
+networks:
+    default:
+        name: visit-counter-benchmarks
+        driver: bridge
+
+services:
+    php:
+        hostname: php
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+            target: prod
+        environment:
+            #XDebug
+            PHP_IDE_CONFIG: serverName=${PHP_IDE_SERVER_NAME:-visits-counter}
+            XDEBUG_MODE: ${PHP_XDEBUG_MODE:-off}
+            XDEBUG_TRIGGER: 1
+            XDEBUG_SESSION: 1
+        volumes:
+            - ./php:/app:rw
+        ports:
+            - "8080:8080"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        depends_on:
+            - redis
+
+    redis:
+        hostname: redis
+        image: redis:7.4
+        ports:
+            - "6379:6379"
+        volumes:
+            -   redis:/data
+
+    prometheus:
+        hostname: prometheus
+        image: prom/prometheus:v3.0.0
+        ports:
+            - "9090:9090"
+        volumes:
+            - ./docker/prometheus/config.yaml:/etc/prometheus/prometheus.yml:ro
+            - prometheus:/prometheus
+        depends_on:
+            - php
+
+    k6:
+        hostname: k6
+        image: grafana/k6:0.56.0
+        environment:
+            - K6_PROMETHEUS_RW_SERVER_URL=http://localhost:9090/api/v1/write
+        volumes:
+            - ./benchmarks/k6:/app
+        depends_on:
+            - php
