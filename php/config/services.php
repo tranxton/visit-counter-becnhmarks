@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Modules\Visits\Application\Adapters\Contracts\VisitContract;
-use App\Modules\Visits\Application\Adapters\VisitAdapter;
 use Predis\Client as PredisClient;
 use Predis\ClientInterface as PredisClientInterface;
 use Spiral\Goridge\RPC\RPC;

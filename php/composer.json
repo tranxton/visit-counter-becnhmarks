@@ -62,17 +62,7 @@
 	"autoload": {
 		"psr-4": {
 			"App\\": "src/"
-		},
-		"exclude-from-classmap": [
-			"vendor/open-telemetry/sdk/Logs/Exporter/_register.php",
-			"vendor/open-telemetry/sdk/Metrics/MetricExporter/_register.php",
-			"vendor/open-telemetry/sdk/Propagation/_register.php",
-			"vendor/open-telemetry/sdk/Trace/SpanExporter/_register.php",
-			"vendor/open-telemetry/sdk/Common/Dev/Compatibility/_load.php",
-			"vendor/open-telemetry/sdk/_autoload.php",
-			"vendor/open-telemetry/exporter-otlp/_register.php",
-			"vendor/open-telemetry/opentelemetry-auto-symfony/_register.php"
-		]
+		}
 	},
 	"autoload-dev": {
 		"psr-4": {

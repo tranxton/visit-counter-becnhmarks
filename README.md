@@ -12,8 +12,7 @@
 
 ## Overview
 
-This repository contains **three separate implementations** of a high-performance REST API for tracking website visits  
-per country. The goal of the project is to **compare performance and efficiency** across the following languages:
+This repository contains **three separate implementations** of a high-performance REST API for tracking website visits per country. The goal of the project is to **compare performance and efficiency** across the following languages:
 
 - PHP
 - Go
