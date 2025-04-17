@@ -38,8 +38,6 @@ Performs write operations, has achieved up to **13,500 RPS** under testing.
 
 ![Register visit](benchmarks/k6/php/reports/register-visit.png)
 
----
-
 #### Get Visits Endpoint
 
 Handles read operations, has reached up to **15,600 RPS** during performance tests.
